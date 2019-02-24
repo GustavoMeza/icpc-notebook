@@ -1,0 +1,6 @@
+Sprague Grundy:
+En un juego imparcial normal, definimos SG como:
+SG(x) = mex({SG(y) | x -> y es válido})
+x es una posición perdedora <=> SG(x) = 0
+Si sumamos dos juegos independientes, entonces:
+SG(xy) = SG(x) ^ SG(y)
