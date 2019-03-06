@@ -1,0 +1,63 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+pair<int,int> Mochila0N(vector<int> Costo, vector<int> Ganancia, int Tam){
+    vector<int> v(Tam+1,-1);
+    v[0]=0;
+    for (int i=0;i<Costo.size();i++)
+        for (int j=0;j<=Tam-Costo[i];j++)
+            if (v[j]>=0 && v[j]+Ganancia[i]>v[j+Costo[i]]) v[j+Costo[i]]=v[j]+Ganancia[i];
+    pair<int,int> r;
+    for (int i=0;i<=Tam;i++)
+        if (r.first<v[i]) r.first=v[i],r.second=i;
+    return r;
+}
+
+//Uva 562
+//Uva 624
+//SPOJ RPLB
+pair<int,int> Mochila01(vector<int> Costo, vector<int> Ganancia, int Tam){
+    vector<int> v(Tam+1,-1);
+    //Para reconstruir vector<int> index(Tam+1,-1);
+    v[0]=0;
+    for (int i=0;i<Costo.size();i++)
+        for (int j=Tam-Costo[i];j>=0;j--)
+            if (v[j]>=0 && v[j]+Ganancia[i]>v[j+Costo[i]]){
+                //Para reconstruir index[j+Costo[i]]=i;
+                v[j+Costo[i]]=v[j]+Ganancia[i];
+            }
+    //Para reconstruir int ind;
+    pair<int,int> r;
+    for (int i=0;i<=Tam;i++)
+        if (r.first<v[i]){
+            r.first=v[i];
+            r.second=i;
+            //Para recontruir ind=index[i];
+        }
+    //Para reconstruir
+    /*int pos = r.second;
+    while (ind!=-1){
+        cout<<ind<<" ";
+        int aux = ind;
+        ind=index[pos-Costo[aux]];
+        pos-=Costo[aux];
+    }*/
+    return r;
+}
+
+int n,m,t,x,y,caso;
+vector<int> c,g;
+
+int main()
+{
+    cin>>t>>n;
+    for (int i=0;i<n;i++){
+        cin>>x>>y;
+        c.push_back(x);
+        g.push_back(y);
+    }
+    cout<<Mochila01(c,g,t).first<<endl;
+}
