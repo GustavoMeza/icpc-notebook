@@ -1,0 +1,49 @@
+const int MAXN = 1e4+5;
+const int INF = 1e9;
+
+struct edge {
+    int a, b, cap, flow;
+};
+
+int n, s, t, f[MAXN], p[MAXN];
+vector<edge> e;
+vi g[MAXN];
+
+void add_edge (int a, int b, int cap) {
+    edge e1 = { a, b, cap, 0 };
+    edge e2 = { b, a, 0, 0 };
+    g[a].push_back ((int) e.size());
+    e.push_back (e1);
+    g[b].push_back ((int) e.size());
+    e.push_back (e2);
+}
+
+int bfs () {
+    memset(f, 0, n*sizeof(f[0]));
+    queue<int> q;
+    q.push(s), f[s] = INF;
+    while(!f[t]) {
+        if(q.empty()) return 0;
+        int u = q.front(); q.pop();
+        for(auto id: g[u]) {
+            int to = e[id].b;
+            if(!f[to] && e[id].cap > e[id].flow)
+                q.push(to), p[to] = id, f[to] = min(f[u], e[id].cap - e[id].flow);
+        }
+    }
+
+    for(int u = t; u != s; u=e[p[u]].a) {
+        e[p[u]].flow += f[t];
+        e[p[u]^1].flow -= f[t];
+    }
+
+    return f[t];
+}
+
+int edmonds_karp() {
+    int flow = 0, pushed;
+    do {
+        flow += pushed = bfs();
+    } while(pushed);
+    return flow;
+}
