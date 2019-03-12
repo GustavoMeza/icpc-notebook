@@ -1,42 +1,33 @@
-const int MAXN = 1e5+5;
+const int MAXN = 2e5+5;
+const int MAXL = 20;
 
-int LN, D[MAXN], P[17][MAXN];
+int N;
 vector<vi> ady;
+int L, D[MAXN], P[MAXL][MAXN];
 
-int LCA(int u, int v) {
-    if(D[u] < D[v]) swap(u, v);
-    int diff = D[u]-D[v];
-    for(int i = 0; i < LN; i++)
-        if(diff & (1<<i)) u = P[i][u];
+int query_binlift(int u, int v) {
+    if(D[u] > D[v]) swap(u, v);
+    int diff = D[v]-D[u];
+    for(int i = 0; i < L; i++)
+        if(diff & (1<<i))
+            v = P[i][v];
     if(u == v) return u;
-    for(int i = LN-1; i>=0; i--)
+    for(int i = L-1; i>=0; i--)
         if(P[i][u] != P[i][v])
             u = P[i][u], v = P[i][v];
     return P[0][u];
 }
 
-int dfs(int n, int p, int d) {
-    P[0][n] = p;
-    D[n] = d;
-    for(int i = 0; i < ady[n].size(); i++)
-        if(ady[n][i] != p)
-            dfs(ady[n][i], n, d+1);
-}
-
-int N, a, b;
-
-int main() {
-    scanf("%d", &N);
-    ady.assign(N, vi());
-    for(int i = 1; i < N; i++) {
-        scanf("%d%d", &a, &b);
-        ady[a-1].push_back(b-1);
-        ady[b-1].push_back(a-1);
+void build_binlift() {
+    queue<int> q; q.push(0);
+    while(!q.empty()) {
+        int n = q.front(); q.pop();
+        for(int e : ady[n])
+            if(e != P[0][n])
+                q.push(e), P[0][e] = n, D[e] = D[n]+1;
     }
-    dfs(0, 0, 0);
-    for(int i = 1; i < N; i<<=1) LN++;
-    for(int i = 1; i < LN; i++)
+    for(L = 0; (1<<L) < N; L++);
+    for(int i = 1; i < L; i++)
         for(int n = 0; n < N; n++)
-            if(P[i-1][n] != -1)
-                P[i][n] = P[i-1][P[i-1][n]];
+            P[i][n] = P[i-1][P[i-1][n]];
 }
