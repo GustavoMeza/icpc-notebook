@@ -1,0 +1,35 @@
+Pendejario
+1. ¿Alguna variable necesita ser long long, o en su defecto unsigned long long?
+2. ¿El problema requiere de un módulo en la respuesta? Si es así, ¿segur@ que le estás sacando módulo a TODO (factoriales, inversos multiplicativos, respuestas, etc).
+3. ¿El límite es más chico de lo que parece?
+4. Si hay factoriales ¿conviene pre calcularlos?
+5. ¿El formato de salida es fuera de lo común?
+6. Si usas long long ¿estás usando %lld?
+7. Si el programa es multicaso, limpia las variables.
+8. Checar que de verdad estás contestando lo que pide el problema.
+9. Si hay que leer muchos casos ¿la lectura no hace que se cicle?
+10. Importar todas las librerías estándar de c++ (solo compilador gcc)
+        #include<bits/stdc++.h>
+11. Hacer más rápido cin y cout.
+12. Añadir lo siguiente AL INICIO DEL MAIN:
+        cin.tie(0);
+        iosbase::sync_with_stdio(0);
+13. No mezclar lo anterior con scanf o printf
+14. No usar endl (a menos de que quieras hacer flush, es decir que todo lo impreso aparezca en la ventana)
+15. Procura hacer los arreglos un poco más grandes de lo que necesitas.
+16. NO se puede dividir normalmente cuando manejas resultados módulo algo, tienes que usar inverso multiplicativo.
+17. Verifica la cantidad de operaciones hechas por tu programa, un evaluador toma aproximadamente 10^8 operaciones cada segundo.
+18. Si estás leyendo caracteres y hay problemas con la lectura, recuerda que los saltos de línea también son leídos por scanf y que después de leer números hay un salto de línea que hay que ignorar. También recuerda que cin ignora todos los espacios en blanco. Si quieres leer una línea completa con cin, usa:
+	getline(cin,stringname);
+19. Si hay funciones que deben devolver un valor, ¿estás devolviéndolo en todos los casos?
+20. En el heap de C++ el padre es mayor a sus hijos.
+21. La función strlen tiene una complejidad del tamaño del arreglo en el que lo uses. Hacer
+    l=strlen(s).
+22. Checar las mayúsculas y minúsculas de la salida.
+23. En caso de TLE, checar que todos los ciclos terminen en algún momento (que no haya condiciones que nunca se dejan de cumplir, que algún contador se cambie en el lugar adecuado del código, etc.)
+24. Si una DP multicasco da TLE intenta precalcular todo.
+25. Para dar formato a un double con cout, incluir <iomanip>. Escribir:
+    cout<<fixed<<setprecision(noDecimales)<<num<<endl;
+26. ¿Es necesario que leas espacios y no lo estás haciendo?
+27. Al trabajar con flotantes, pon punto decimal a las constantes (por ejemplo, escribir x=a/2.0 en vez de x=a/2). De otro modo es posible que C++ lo tome como entero.
+28. Si el problema tiene algún tipo de gráficas, ¿éstas tienen que ser conexas? ¿Estás revisando que lo sean?
