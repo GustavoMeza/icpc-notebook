@@ -4,3 +4,15 @@ SG(x) = mex({SG(y) | x -> y es válido})
 x es una posición perdedora <=> SG(x) = 0
 Si sumamos dos juegos independientes, entonces:
 SG(xy) = SG(x) ^ SG(y)
+
+
+
+Cosas varias:
+Todo entero positivo es suma de cuatro cuadrados.
+Todo entero positivo es suma de tres números triangulares.
+Todo entero positivo es suma de nueve cubos.
+Todo entero positivo es suma de diecinueve cuartas potencias.
+Todo impar mayor que 5 es suma de tres primos.
+Todo par mayor que 2 es suma de dos primos.
+Todo entero positivo es suma de tres capicúas en cualquier base
+Para los fibonacci Fi mcm(Fa,Fb)==F{mcm(a,b)}.

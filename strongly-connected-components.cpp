@@ -1,3 +1,4 @@
+//Tarjan
 int tscc, nscc;
 stack<int> s;
 vi SCC, dfs_num, dfs_low;
