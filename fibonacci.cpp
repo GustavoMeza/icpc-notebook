@@ -1,3 +1,16 @@
+//Using matrix.cpp
+
+long long Fib(long long n){
+    if (n==0) return 0;
+    mat fib;
+    mat_zeros(fib, 2, 2);
+    fib[0][0]=1;
+    fib[0][1]=1;
+    fib[1][0]=1;
+    mat_exp(fib,n-1);
+    return fib[0][0];
+}
+
 // Matrices
 
 long long fib(long long n)
