@@ -1,0 +1,33 @@
+//Número de coincidencias dado una string y un patron
+int RabinKarp(string s, string p, int p1, int p2){
+    if (s.size()<p.size()) return 0;
+    int R=0;
+    int i,j;
+    int is=0;
+    int ip=0;
+    int last=1;
+    for (i=0;i<p.size();i++){
+        is=(is*p1+s[i])%p2;
+        if (is<0) is+=p2;
+        ip=(ip*p1+p[i])%p2;
+        if (ip<0) ip+=p2;
+        last=(last*p1)%p2;
+    }
+    if (is==ip){
+        for (j=0;j<p.size();j++)
+            if (s[j]!=p[j]) break;
+        if (j==p.size()) R++;
+    }
+    for (i=p.size();i<s.size();i++){
+        is=(is*p1)%p2;
+        is=(is-s[i-p.size()]*last)%p2;
+        is=(is+s[i])%p2;
+        if (is<0) is+=p2;
+        if (is==ip){
+            for (j=0;j<p.size();j++)
+                if (s[j+i-p.size()+1]!=p[j]) break;
+            if (j==p.size()) R++;
+        }
+    }
+    return R;
+}
