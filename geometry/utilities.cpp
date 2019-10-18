@@ -27,7 +27,7 @@ ll cross(vec a, vec b) {
 }
 
 // Dot product
-double dot(vec a, vec b) {
+ll dot(vec a, vec b) {
     return a.x*b.x + a.y*b.y;
 }
 
