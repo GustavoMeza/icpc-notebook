@@ -1,0 +1,59 @@
+#include <queue>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+bool vis[100010];
+long long dist[100010];
+long long path[100010];
+long long n,m,s,f,x,y,p;
+pair<long long,long long> top;
+vector<pair<long long,long long> > ady[100010];
+priority_queue<pair<long long,long long> > pq;
+
+void Imprimir(long long x){
+    if (x!=-1){
+        Imprimir(path[x]);
+        cout<<" "<<x;
+    }
+}
+
+int main()
+{
+    //cin>>n>>m>>s>>f;
+    cin>>n>>m;
+    s=1, f=n;
+    while (m--){
+        cin>>x>>y>>p;
+        ady[x].push_back(make_pair(p,y));
+        ady[y].push_back(make_pair(p,x));
+    }
+    vis[s]=true;
+    path[s]=-1;
+    for (int i=1;i<=n;i++) dist[i]=1000000000000000000;
+    dist[s]=0;
+    for (int i=0;i<ady[s].size();i++){
+        path[ady[s][i].second]=s;
+        dist[ady[s][i].second]=ady[s][i].first;
+        pq.push(make_pair(-ady[s][i].first,ady[s][i].second));
+    }
+    while (!pq.empty()){
+        p=pq.top().first, x=pq.top().second, pq.pop();
+        if (!vis[x]){
+            vis[x]=true;
+            for (int i=0;i<ady[x].size();i++){
+                y=ady[x][i].second;
+                if (!vis[y] && -p+ady[x][i].first<dist[y]){
+                    path[y]=x;
+                    dist[y]=-p+ady[x][i].first;
+                    pq.push(make_pair(p-ady[x][i].first,y));
+                }
+            }
+        }
+    }
+    if (vis[f]){
+        Imprimir(f);
+    }
+    else cout<<"-1"<<endl;
+}
