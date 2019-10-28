@@ -32,7 +32,8 @@ bool es_primo_prob (ll n, int a) {
 		
 bool rabin (ll n){ //devuelve true si n es primo
 	if (n == 1)	return false;
-	const int ar[] = {2,3,5,7,11,13,17,19,23};
+	const int ar[] = {2,7,61}; //32 bits
+	const int ar[] = {2,3,5,7,11,13,17,19,23,29,31,37}; // 64 bits
 	for (int i = 0; i < 9; i++)
 		if (!es_primo_prob(n,ar[i]))
 			return false;
