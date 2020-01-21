@@ -10,10 +10,7 @@ bool segment_intersect(point a, point b, point u, point v) {
 
 // el punto a está dentro o fuera de p?
 bool point_n_poly(poly p, point a) {
-    auto max_x = max_element(begin(p), end(p), [](point a, point b) {
-        return a.x < b.x;
-    })->x;
-    point b(max_x, a.y);
+    point b(MAX_X, a.y);
     int j = size(p)-1;
     bool ans = false;
     for(int i = 0; i < size(p); i++) {
