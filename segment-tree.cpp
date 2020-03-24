@@ -1,18 +1,18 @@
-void build_st() {
-    for(int i = 0; i < N; i++) st[i+N]=A[i];
-    for(int i = N-1; i >= 1; i--) st[i] = st[i<<1]+st[i<<1|1];
-}
+struct stnode {}; // Datos que va a contener
+stnode eye; // Elemento identidad
+stnode combine(stnode a, stnode b) {} //Funcion que combina nodos
 
-// Importante: l incluido, r excluido
-int query_st(int l, int r) {
-    int ans = 0;
-    for(l+=N,r+=N; l<r; l>>=1,r>>=1) {
-        if(l&1) ans+=st[l++];
-        if(r&1) ans+=st[--r];
+ll m; stnode st[2*maxn];
+void build(ll x) { m=x; }
+void update(ll p, stnode x) {
+    st[p+=m]=x;
+    while(p/=2) st[p]=combine(st[p*2],st[p*2+1]);
+}
+stnode query(ll l, ll r) {
+    stnode ansl=eye, ansr=eye;
+    for(l+=m,r+=m; l<r; l/=2,r/=2) {
+        if(l&1) ansl=combine(ansl, st[l++]);
+        if(r&1) ansr=combine(st[--r], ansr);
     }
-    return ans;
-}
-
-int update_st(int p, int v) {
-    for(st[p+=N]=v; p>1; p>>=1) st[p>>1] = st[p]+st[p^1];
+    return combine(ansl, ansr);
 }
