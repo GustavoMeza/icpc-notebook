@@ -64,3 +64,14 @@ double dist(point a, point b, point c) {
     return abs(perp_comp(c-a, b-a));
 }
 
+// ¿lineas a-b y c-d se intersectan?
+// asume a!=b y c!=d en cuyo caso es indeterminado
+bool line_intersect(point a, point b, point c, point d) {
+    return cross(b-a, d-c) != 0;
+}
+
+// Obtiene el punto de interseccion de las rectas a-b y c-d
+// asume a!=b, c!=d y que se intersectan
+point line_intersection(point a, point b, point c, point d) {
+    return a + (b-a)*cross(c-a, d-c)/cross(b-a, d-c);
+}
