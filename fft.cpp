@@ -6,6 +6,7 @@ void ntt(ll *a,ll n,ll g,ll mod){
         for(;j&bit;bit>>=1) j^=bit;
         j^=bit;
     }
+    rep(i,0,n) a[i]%=mod;
     for(ll len=1;2*len<=n;len*=2){
         ll wlen=binpow(g,(mod-1)/(2*len),mod);
         for(ll i=0;i+2*len<=n;i+=2*len){
