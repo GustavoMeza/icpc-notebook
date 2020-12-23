@@ -32,6 +32,13 @@ int garner(int *a,int mod){
     per(i,0,2) a[i]=(a[i]+1ll*a[i+1]*m[i])%mod; // Evaluación
     return a[0];
 }
+/* Versión con dos módulos regresando long long
+const int m[]={(5<<25)+1,(7<<26)+1},inv[]={104391568},g=3;
+ll c[fft::maxn];
+ll garner(int *a){
+    a[1]=1ll*(a[1]-a[0]+m[1])*inv[0]%m[1];
+    return a[0]+1ll*a[1]*m[0];
+}*/
 void solve(int an, int bn, int mod){
     rep(i,0,3) {
         fft::init(an+bn-1,g,m[i]);
