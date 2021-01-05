@@ -5,7 +5,20 @@ x es una posición perdedora <=> SG(x) = 0
 Si sumamos dos juegos independientes, entonces:
 SG(xy) = SG(x) ^ SG(y)
 
+Hall's marriage:
+Existe un matching perfecto <=> para cada subconjunto X de L |X| <= |N(X)|
 
+
+Flujos:
+Min cut = Max flow
+(en bipartitas)
+Min vertex cover = Max matching = Max Flow
+Max indipendent set = N - Max Flow
+(En dag)
+(construyendo la bipartita L[i]->R[j] <=> Existe una arista de i a j)
+Min path cover = N - Max Flow
+(construyendo la bipartita L[i]->R[j] <=> Existe un path de i a j)
+Max antichain = Min chain descomposition = N - Max Flow
 
 Cosas varias:
 Todo entero positivo es suma de cuatro cuadrados.
