@@ -1,3 +1,5 @@
+// No funciona
+
 // dos segmentos (a,b), (u,v) se intersectan?
 bool segment_intersect(point a, point b, point u, point v) {
     auto dir_u = turn(u-a, b-a);
