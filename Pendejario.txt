@@ -25,7 +25,7 @@ Pendejario
 20. En el heap de C++ el padre es mayor a sus hijos.
 21. La función strlen tiene una complejidad del tamaño del arreglo en el que lo uses. Hacer
     l=strlen(s).
-22. Checar las mayúsculas y minúsculas de la salida.
+22. Checar el formato de la salida
 23. En caso de TLE, checar que todos los ciclos terminen en algún momento (que no haya condiciones que nunca se dejan de cumplir, que algún contador se cambie en el lugar adecuado del código, etc.)
 24. Si una DP multicasco da TLE intenta precalcular todo.
 25. Para dar formato a un double con cout, incluir <iomanip>. Escribir:
