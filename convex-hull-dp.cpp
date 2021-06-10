@@ -1,13 +1,12 @@
 typedef pair<long long, long long> ii;
 
-const int MAXN = 1e5 + 5;
-const long double EPS = 1e-6;
+const int MAXN = 1e6 + 5;
 
 ii ch[MAXN];
 int M, p;
 
 bool eat(ii l3, ii l2, ii l1) {
-    return ((long double) (l1.second - l3.second)) * (l3.first - l2.first) < ((long double) (l2.second - l3.second)) * (l3.first - l1.first);
+    return  ((long double) (l1.second - l3.second)) / (l3.first - l1.first) > ((long double) (l2.second - l3.second)) / (l3.first - l2.first);
 }
 
 long long eval(long long x, ii l) {
