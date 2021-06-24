@@ -33,4 +33,4 @@ Pendejario
 26. ¿Es necesario que leas espacios y no lo estás haciendo?
 27. Al trabajar con flotantes, pon punto decimal a las constantes (por ejemplo, escribir x=a/2.0 en vez de x=a/2). De otro modo es posible que C++ lo tome como entero.
 28. Si el problema tiene algún tipo de gráficas, ¿éstas tienen que ser conexas? ¿Estás revisando que lo sean?
-29. a/b!=floor(a/b). a/b==floor(a/b).  Esto es importante en los negativos: floor(-4.5)=-5 ; trunc(-4.5)=-4
+29. a/b!=floor(a/b). a/b==trunc(a/b).  Esto es importante en los negativos: floor(-4.5)=-5 ; trunc(-4.5)=-4
