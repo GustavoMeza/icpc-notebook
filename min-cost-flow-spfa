@@ -1,0 +1,90 @@
+// O(F*V*E) en el peor caso
+// O(F*E) promedio en gráficas esparsas aleatorias
+// Puede ser mejor en algunos problemas que el O(F*E*logV) de Johnson + Dijkstra 
+
+#define rep(i,a,b) for(int i=(a);i<(b);i++)
+#include <bits/stdc++.h>
+using namespace std;
+using vi=vector<int>;
+
+namespace MCMF {
+
+    struct edge {
+        int a, b, cap, flow, cost;
+    };
+
+    const int MAXN = 1e4+5;
+    const int INF = 1e9;
+    int n, s, t, f[MAXN], p[MAXN], d[MAXN], inqueue[MAXN];
+    vector<edge> e;
+    vi g[MAXN];
+
+    void add_edge (int a, int b, int cap, int cost) {
+        edge e1 = { a, b, cap, 0, cost };
+        edge e2 = { b, a, 0, 0, -cost };
+        g[a].push_back ((int) e.size());
+        e.push_back (e1);
+        g[b].push_back ((int) e.size());
+        e.push_back (e2);
+    }
+
+    int bfs () {
+        rep(i,0,n) d[i]=INF, inqueue[i]=0, f[i]=0;
+        queue<int> q;
+        d[s]=0, f[s]=INF;
+        q.push(s), inqueue[s]=1;
+        while(!q.empty()) {
+            int u = q.front(); q.pop(); inqueue[u]=0;
+            for(auto id: g[u]) {
+                int to = e[id].b;
+                int len = e[id].cost;
+                int cap = e[id].cap-e[id].flow;
+                if(d[u]+len<d[to] && cap>0) {
+                    d[to]=d[u]+len, p[to]=id, f[to]=min(f[u], cap);
+                    if(!inqueue[to]) q.push(to), inqueue[to]=1; 
+                }
+            }
+        }
+
+        for(int u = t; u != s; u=e[p[u]].a) {
+            e[p[u]].flow += f[t];
+            e[p[u]^1].flow -= f[t];
+        }
+
+        return f[t];
+    }
+
+    void init(int _n, int _s, int _t) {
+        n=_n; e.clear();
+        s=_s; t=_t;
+        rep(i,0,n) g[i].clear();
+    }
+
+    int edmonds_karp() {
+        int flow = 0, pushed, cost=0;
+        do {
+            flow += pushed = bfs();
+            if(pushed) cost+=d[t];
+        } while(pushed);
+        return cost;
+    }
+}
+
+const int maxn=80+5, di[]={-1,0,1,0}, dj[]={0,1,0,-1};
+int N,M,A[maxn][maxn];
+int id(int i, int j) { return 1+i*M+j; }
+int inside(int i, int j) { return 0<=i&&i<N&&0<=j&&j<M; }
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin>>N>>M;
+    rep(i,0,N) rep(j,0,M) cin>>A[i][j];
+    MCMF::init(N*M+2,0,N*M+1);
+    rep(i,0,N) rep(j,0,M)
+        if((i+j)%2==0) MCMF::add_edge(0,id(i,j),1,0);
+        else MCMF::add_edge(id(i,j),N*M+1,1,0);
+    rep(i,0,N) rep(j,0,M) if((i+j)%2==0) rep(k,0,4) {
+        int i2=i+di[k], j2=j+dj[k];
+        if(inside(i2,j2)) MCMF::add_edge(id(i,j),id(i2,j2),1,A[i][j]!=A[i2][j2]);
+    }
+    cout<<MCMF::edmonds_karp()<<"\n";
+}
