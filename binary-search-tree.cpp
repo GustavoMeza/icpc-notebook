@@ -1,3 +1,4 @@
+//Requires better algorithm. Currently naive
 template <typename T>
 class BinarySearchTree{
 private:
