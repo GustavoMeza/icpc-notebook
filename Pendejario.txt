@@ -36,3 +36,4 @@ Pendejario
 29. a/b!=floor(a/b). a/b==trunc(a/b).  Esto es importante en los negativos: floor(-4.5)=-5 ; trunc(-4.5)=-4
 30. Usar sqrt regresa doubles. Al castear a entero puede hacerlo mal.
 31. Si usas recursión puedes desbordar la pila y causar RTE o incluso WA. Este error ha aparecido con 2e5 de profundidad y O(1) de memoria por llamada. Considera usar bfs o iterar sobre el orden topológico.
+32. Jerarquía de operaciones
