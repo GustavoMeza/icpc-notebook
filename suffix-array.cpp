@@ -1,3 +1,32 @@
+// v2.0 O(N log N)
+struct SA {
+	vector<vector<ll> > r;
+	vector<ll> sa;
+	SA(const string &s) {
+		const ll N = s.size(), L = 65-__builtin_clzll(N);
+		r.assign(L,vector<ll>(2*N,0));
+		rep(i,0,N) r[0][i] = s[i];
+		sa.resize(N); iota(all(sa), 0);
+		vector<ll> cnt(max(N+1,300ll)), tmp(N);
+		rep(l,0,L-1) {
+			ll w = 1<<l;
+			fill(all(cnt),0);
+			rep(i,0,N) cnt[r[l][sa[i]+w]+1]++;
+			partial_sum(all(cnt), begin(cnt));
+			rep(i,0,N) tmp[cnt[r[l][sa[i]+w]]++] = sa[i];
+			fill(all(cnt),0);
+			rep(i,0,N) cnt[r[l][tmp[i]]+1]++;
+			partial_sum(all(cnt), begin(cnt));
+			rep(i,0,N) sa[cnt[r[l][tmp[i]]]++] = tmp[i];
+			rep(i,1,N) {
+				ll x=sa[i-1], y=sa[i];
+				r[l+1][y] = r[l][x] == r[l][y] && r[l][x+w] == r[l][y+w] ? r[l+1][x] : i;
+			}
+		}
+	}
+};
+
+// Original O(N log^2 N)
 const int MAXN = 5e5 + 5;
 int N, L, SA[MAXN], pos[20][MAXN];
 array<int,3> v[MAXN];
