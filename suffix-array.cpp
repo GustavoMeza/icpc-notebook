@@ -1,4 +1,31 @@
-// v2.0 O(N log N)
+// v2.1 O(N log N) mas rapido
+struct SA {
+	vector<vector<ll> > r;
+	vector<ll> sa;
+	SA(const string &s) {
+		const ll N = s.size(), L = 65-__builtin_clzll(N);
+		r.assign(L,vector<ll>(2*N,0));
+		sa.resize(N); iota(all(sa), 0);
+		sort(all(sa), [&](ll x, ll y) { return s[x] < s[y]; });
+		rep(i,1,N) {
+			ll x=sa[i-1], y=sa[i];
+			r[0][y] = s[x] == s[y] ? r[0][x] : i;
+		}
+		vector<ll> cnt(N),tmp(N);
+		rep(l,0,L-1) {
+			ll w = 1<<l; iota(all(cnt),0);
+			copy(all(sa), begin(tmp));
+			rep(i,0,N) if(sa[i]>=w) tmp[cnt[r[l][sa[i]-w]]++]=sa[i]-w;
+			copy(all(tmp),begin(sa));
+			rep(i,1,N) {
+				ll x=sa[i-1], y=sa[i];
+				r[l+1][y] = r[l][x] == r[l][y] && r[l][x+w] == r[l][y+w] ? r[l+1][x] : i;
+			}
+		}
+	}
+};
+
+// v2.0 O(N log N) mas flexible, e.g. WF 2019 G
 struct SA {
 	vector<vector<ll> > r;
 	vector<ll> sa;
